@@ -1,16 +1,2 @@
 {
-    "editor.tabSize": 2,
-    "eslint.enable": true,
-    "eslint.autoFixOnSave": true,
-    "eslint.run": "onType",
-    "eslint.options": {
-        "extensions": [".js",".vue"]
-    },
-    "eslint.validate": [
-       "javascript",{
-           "language": "vue",
-           "autoFix": true
-       },"html",
-       "vue"
-       ],
 }
