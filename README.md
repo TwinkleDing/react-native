@@ -1,5 +1,4 @@
 # react-native
-
 cd react-native
 
 npm install
