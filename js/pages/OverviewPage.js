@@ -3,6 +3,9 @@ import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
+import Icon from '../components/Icon/MyIcon';
+console.log(<Icon name={'community'} size={50} color="#226688" />);
+
 export default class OverviewPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
@@ -49,6 +52,7 @@ class TopTab extends Component {
           }}>
           跳转到详情页
         </Text>
+        <Icon name={'community'} size={50} color="#226688" />
       </View>
     );
   }
