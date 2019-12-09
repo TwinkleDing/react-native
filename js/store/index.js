@@ -8,11 +8,7 @@ import {middleware} from '../navigator/AppNavigator';
  * @param store
  */
 
-
-const middlewares = [
-    middleware
-    
-];
+const middlewares = [middleware];
 
 /**
  * 创建store

@@ -1,28 +1,29 @@
-
 import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
 export default class OverviewPage extends Component {
   render() {
-    const TabNavigator = createAppContainer(createMaterialTopTabNavigator({
-      TopTab1:{
-        screen:TopTab,
-        navigationOptions: {
-          title:'TopTab1'
-        }
-      },
-      TopTab2:{
-        screen:TopTab,
-        navigationOptions: {
-          title:'TopTab2'
-        }
-      }
-    }));
+    const TabNavigator = createAppContainer(
+      createMaterialTopTabNavigator({
+        TopTab1: {
+          screen: TopTab,
+          navigationOptions: {
+            title: 'TopTab1',
+          },
+        },
+        TopTab2: {
+          screen: TopTab,
+          navigationOptions: {
+            title: 'TopTab2',
+          },
+        },
+      }),
+    );
     return (
-      <View style={{flex:1,marginTop:30}}>
-        <TabNavigator/>
+      <View style={{flex: 1, marginTop: 30}}>
+        <TabNavigator />
       </View>
     );
   }
@@ -35,13 +36,20 @@ class TopTab extends Component {
   render() {
     const {tabLabel} = this.props;
     return (
-        <View style={styles.container}>
-          <Text style={styles.welcome}>{tabLabel}</Text>
-          <Text onPress = { () => {
-            NavigationUtil.goPage({
-              navigation:this.props.navigation
-            },"DetailPage")}}>跳转到详情页</Text>
-        </View>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>{tabLabel}</Text>
+        <Text
+          onPress={() => {
+            NavigationUtil.goPage(
+              {
+                navigation: this.props.navigation,
+              },
+              'DetailPage',
+            );
+          }}>
+          跳转到详情页
+        </Text>
+      </View>
     );
   }
 }

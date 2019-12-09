@@ -1,46 +1,55 @@
-import {createSwitchNavigator,
-        createAppContainer
-    } from "react-navigation";
-import WelcomePage from "../pages/WelcomePage";
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import WelcomePage from '../pages/WelcomePage';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator, createMaterialTopTabNavigator} from 'react-navigation-tabs';
-import HomePage from "../pages/HomePage";
-import DetailPage from "../pages/DetailPage";
+import {
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+} from 'react-navigation-tabs';
+import HomePage from '../pages/HomePage';
+import DetailPage from '../pages/DetailPage';
 import {connect} from 'react-redux';
-import {createReactNavigationReduxMiddleware, createReduxContainer} from 'react-navigation-redux-helpers';
+import {
+  createReactNavigationReduxMiddleware,
+  createReduxContainer,
+} from 'react-navigation-redux-helpers';
 
-export const rootCom = 'Init';//设置根路由
+export const rootCom = 'Init'; //设置根路由
 const InitNavigator = createStackNavigator({
-    WelcomePage: {
-        screen:WelcomePage,
-        navigationOptions:{
-            header:null,
-        }
-    }
+  WelcomePage: {
+    screen: WelcomePage,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
 const MainNavigator = createStackNavigator({
-    HomePage: {
-        screen: HomePage,
-        navigationOptions: {
-            header: null, 
-        }
+  HomePage: {
+    screen: HomePage,
+    navigationOptions: {
+      header: null,
     },
-    DetailPage: {
-        screen: DetailPage,
-        navigationOptions: {
-            //header: null,
-        }
-    }
+  },
+  DetailPage: {
+    screen: DetailPage,
+    navigationOptions: {
+      //header: null,
+    },
+  },
 });
-export const RootNavigator = createAppContainer(createSwitchNavigator({
-    Init: InitNavigator,
-    Main: MainNavigator,
-}, {
-    defaultNavigationOptions: {
-        header: null,//将其设置成null可以禁用statcknavigation
-    }
-}));
+export const RootNavigator = createAppContainer(
+  createSwitchNavigator(
+    {
+      Init: InitNavigator,
+      Main: MainNavigator,
+    },
+    {
+      defaultNavigationOptions: {
+        header: null, //将其设置成null可以禁用statcknavigation
+      },
+    },
+  ),
+);
 
 /**
  * 1.初始化react-navigation与redux的中间件，
@@ -50,8 +59,8 @@ export const RootNavigator = createAppContainer(createSwitchNavigator({
  * @type {Middleware}
  */
 export const middleware = createReactNavigationReduxMiddleware(
-    'root',
-    state => state.nav
+  'root',
+  state => state.nav,
 );
 
 /**
@@ -66,7 +75,7 @@ const AppWithNavigationState = createReduxContainer(RootNavigator, 'root');
  * @param state
  */
 const mapStateToProps = state => ({
-    state: state.nav,//v2
+  state: state.nav, //v2
 });
 /**
  * 3.连接 React 组件与 Redux store
