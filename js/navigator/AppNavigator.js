@@ -59,7 +59,7 @@ export const RootNavigator = createAppContainer(
  * @type {Middleware}
  */
 export const middleware = createReactNavigationReduxMiddleware(
-  'root',
+  navStateSelector => 'root',
   state => state.nav,
 );
 

@@ -29,6 +29,7 @@ export default class NavigationUtil {
    * 重定向到首页
    * @param navigation
    */
+  // eslint-disable-next-line no-dupe-class-members
   static resetToHomePage(params) {
     const {navigation} = params;
     navigation.navigate('Main');

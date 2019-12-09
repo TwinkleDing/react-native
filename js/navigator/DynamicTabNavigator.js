@@ -14,7 +14,7 @@ const TABS = {
   AreaPage: {
     screen: AreaPage,
     navigationOptions: {
-      tabBarLabel: '园区',
+      tabBarLabel: '仪狄搜索格',
       tabBarIcon: ({tintColor, focused}) => (
         <FontAwesome name={'map'} size={26} style={{color: tintColor}} />
       ),
