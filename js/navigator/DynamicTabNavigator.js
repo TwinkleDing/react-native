@@ -2,61 +2,47 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import AreaPage from '../pages/AreaPage';
-import CarPage from '../pages/CarPage';
-import OverviewPage from '../pages/OverviewPage';
-import TaskPage from '../pages/TaskPage';
+import FoundPage from '../pages/FoundPage';
+import CommunityPage from '../pages/CommunityPage';
+import GamePage from '../pages/GamePage';
 import UserPage from '../pages/UserPage';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NavigationUtil from './NavigationUtil';
+import Icon from '../components/Icon/MyIcon';
 
 const TABS = {
-  AreaPage: {
-    screen: AreaPage,
+  FoundPage: {
+    screen: FoundPage,
     navigationOptions: {
-      tabBarLabel: '仪狄搜索格',
+      tabBarLabel: '发现',
       tabBarIcon: ({tintColor, focused}) => (
-        <FontAwesome name={'map'} size={26} style={{color: tintColor}} />
+        <Icon name={'found'} size={26} style={{color: tintColor}} />
       ),
     },
   },
-  CarPage: {
-    screen: CarPage,
+  GamePage: {
+    screen: GamePage,
     navigationOptions: {
-      tabBarLabel: '车辆',
+      tabBarLabel: '游戏库',
       tabBarIcon: ({tintColor, focused}) => (
-        <FontAwesome name={'car'} size={26} style={{color: tintColor}} />
+        <Icon name={'game'} size={26} style={{color: tintColor}} />
       ),
     },
   },
-  OverviewPage: {
-    screen: OverviewPage,
+  CommunityPage: {
+    screen: CommunityPage,
     navigationOptions: {
-      tabBarLabel: '概览',
+      tabBarLabel: '社区',
       tabBarIcon: ({tintColor, focused}) => (
-        <FontAwesome
-          name={'info-circle'}
-          size={26}
-          style={{color: tintColor}}
-        />
-      ),
-    },
-  },
-  TaskPage: {
-    screen: TaskPage,
-    navigationOptions: {
-      tabBarLabel: '任务',
-      tabBarIcon: ({tintColor, focused}) => (
-        <FontAwesome name={'tasks'} size={26} style={{color: tintColor}} />
+        <Icon name={'community'} size={26} style={{color: tintColor}} />
       ),
     },
   },
   UserPage: {
     screen: UserPage,
     navigationOptions: {
-      tabBarLabel: '个人',
+      tabBarLabel: '我的',
       tabBarIcon: ({tintColor, focused}) => (
-        <FontAwesome name={'user'} size={26} style={{color: tintColor}} />
+        <Icon name={'my'} size={26} style={{color: tintColor}} />
       ),
     },
   },
@@ -68,14 +54,14 @@ export default class DynamicTabNavigator extends Component {
     console.disableYellowBox = true;
   }
   _tabNavigator() {
-    const {AreaPage, CarPage, OverviewPage, TaskPage, UserPage} = TABS;
-    const tabs = {AreaPage, CarPage, OverviewPage, TaskPage, UserPage};
-    AreaPage.navigationOptions.tabBarLabel = '园区'; //动态配置tab属性
+    const {FoundPage, CommunityPage, GamePage, UserPage} = TABS;
+    const tabs = {FoundPage, CommunityPage, GamePage, UserPage};
+    // FoundPage.navigationOptions.tabBarLabel = '园区'; //动态配置tab属性
     return createAppContainer(
       createBottomTabNavigator(tabs, {
         lazy: true,
         animationEnabled: false,
-        initialRouteName: 'OverviewPage',
+        initialRouteName: 'FoundPage',
         tabBarOptions: {
           tabStyle: {minWidth: 50, marginTop: 5},
           upperCaseLabel: false,

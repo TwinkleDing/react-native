@@ -5,7 +5,7 @@ export default class UserPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>User Page! </Text>
+        <Text style={styles.welcome}>我的</Text>
       </View>
     );
   }

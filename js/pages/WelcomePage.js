@@ -9,7 +9,7 @@ export default class Welcome extends Component {
       NavigationUtil.resetToHomePage({
         navigation: this.props.navigation,
       });
-    }, 200);
+    }, 2000);
   }
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);

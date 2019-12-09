@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
-export default class AreaPage extends Component {
+export default class CarPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Area Page! </Text>
+        <Text style={styles.welcome}>社区</Text>
       </View>
     );
   }

@@ -3,23 +3,21 @@ import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
-import Icon from '../components/Icon/MyIcon';
-console.log(<Icon name={'community'} size={50} color="#226688" />);
 
 export default class OverviewPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
       createMaterialTopTabNavigator({
-        TopTab1: {
+        FocusTab: {
           screen: TopTab,
           navigationOptions: {
-            title: 'TopTab1',
+            title: '关注',
           },
         },
-        TopTab2: {
+        FoundTab: {
           screen: TopTab,
           navigationOptions: {
-            title: 'TopTab2',
+            title: '发现',
           },
         },
       }),
@@ -52,7 +50,7 @@ class TopTab extends Component {
           }}>
           跳转到详情页
         </Text>
-        <Icon name={'community'} size={50} color="#226688" />
+        <Text>游戏库</Text>
       </View>
     );
   }
