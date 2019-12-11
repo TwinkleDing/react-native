@@ -4,23 +4,50 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
 
-export default class OverviewPage extends Component {
+export default class FoundPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
-      createMaterialTopTabNavigator({
-        FocusTab: {
-          screen: TopTab,
-          navigationOptions: {
-            title: '关注',
+      createMaterialTopTabNavigator(
+        {
+          FocusTab: {
+            screen: FouceTab,
+            navigationOptions: {
+              title: '关注',
+            },
+          },
+          FoundTab: {
+            screen: FoundTab,
+            navigationOptions: {
+              title: '发现',
+            },
+          },
+          FoundTab1: {
+            screen: FoundTab,
+            navigationOptions: {
+              title: '发现',
+            },
+          },
+          FoundTab2: {
+            screen: FoundTab,
+            navigationOptions: {
+              title: '发现',
+            },
+          },
+          FoundTab3: {
+            screen: FoundTab,
+            navigationOptions: {
+              title: '发现',
+            },
           },
         },
-        FoundTab: {
-          screen: TopTab,
-          navigationOptions: {
-            title: '发现',
+        {
+          initialRouteName: 'FoundTab',
+          lazy: true,
+          tabBarOptions: {
+            scrollEnabled: true,
           },
         },
-      }),
+      ),
     );
     return (
       <View style={{flex: 1, marginTop: 30}}>
@@ -33,7 +60,7 @@ export default class OverviewPage extends Component {
 /**
  * 顶部导航组件
  */
-class TopTab extends Component {
+class FouceTab extends Component {
   render() {
     const {tabLabel} = this.props;
     return (
@@ -50,7 +77,34 @@ class TopTab extends Component {
           }}>
           跳转到详情页
         </Text>
-        <Text>游戏库</Text>
+        <Text
+          onPress={() => {
+            console.log(this.props);
+          }}>
+          关注
+        </Text>
+      </View>
+    );
+  }
+}
+class FoundTab extends Component {
+  render() {
+    const {tabLabel} = this.props;
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>222{tabLabel}</Text>
+        <Text
+          onPress={() => {
+            NavigationUtil.goPage(
+              {
+                navigation: this.props.navigation,
+              },
+              'DetailPage',
+            );
+          }}>
+          跳转到详情页
+        </Text>
+        <Text>发现</Text>
       </View>
     );
   }
