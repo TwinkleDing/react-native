@@ -4,9 +4,9 @@ cd react-native
 
 npm install
 
-**android** _npm run android
+**android** _npm run android_
 
-**ios** _npm run ios
+**ios** _npm run ios_
 
 * Dynamic Bottom Navigation
 
