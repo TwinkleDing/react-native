@@ -50,7 +50,7 @@ export default class FoundPage extends Component {
       ),
     );
     return (
-      <View style={{flex: 1, marginTop: 30}}>
+      <View style={{flex: 1}}>
         <TabNavigator />
       </View>
     );

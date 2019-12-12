@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
+import ActivityIndicator from '../components/ActivityIndicator';
+import Button from '../components/Button';
 export default class GamePage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>游戏库</Text>
+        <View style={styles.items}>
+          <ActivityIndicator />
+        </View>
+        <View style={styles.items}>
+          <Button />
+        </View>
       </View>
     );
   }
@@ -13,14 +20,11 @@ export default class GamePage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    paddingTop: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  items: {
+    marginBottom: 20,
   },
 });

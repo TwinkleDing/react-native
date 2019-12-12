@@ -12,37 +12,42 @@ export default class FoundPage extends Component {
           FocusTab: {
             screen: FouceTab,
             navigationOptions: {
-              title: '关注',
+              tabBarLabel: '关注',
+              swipeEnabled: true,
             },
           },
           FoundTab: {
             screen: FoundTab,
             navigationOptions: {
-              title: '发现',
+              tabBarLabel: '发现',
+              swipeEnabled: true,
             },
           },
           FoundTab1: {
             screen: FoundTab,
             navigationOptions: {
-              title: '发现',
+              tabBarLabel: '发现',
+              swipeEnabled: true,
             },
           },
           FoundTab2: {
             screen: FoundTab,
             navigationOptions: {
-              title: '发现',
+              tabBarLabel: '发现',
+              swipeEnabled: true,
             },
           },
           FoundTab3: {
             screen: FoundTab,
             navigationOptions: {
-              title: '发现',
+              tabBarLabel: '发现',
+              swipeEnabled: true,
             },
           },
         },
         {
-          initialRouteName: 'FoundTab',
-          swipeEnabled: false,
+          swipeEnabled: true,
+          tabBarPosition: 'top', //如果在顶部，就是 top
           tabBarOptions: {
             scrollEnabled: true,
           },

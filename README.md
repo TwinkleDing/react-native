@@ -21,3 +21,4 @@ npm install
 坑
 swiper的坑
 I removed 1.5.14 (yarn remove react-native-swiper) then installed the nightly with yarn add react-native-swiper@nightly and it’s working on Android now.
+抽屉菜单未成功
