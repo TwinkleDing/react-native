@@ -4,7 +4,7 @@ cd react-native
 
 npm install
 
-**android** _npm run android_
+**android** _npm run android
 
 **ios** _npm run ios
 
