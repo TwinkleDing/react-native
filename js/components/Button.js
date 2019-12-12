@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'react-native';
+import {Button, StyleSheet} from 'react-native';
 import {ToastAndroid} from 'react-native';
 export default class App extends Component {
   render() {
@@ -10,7 +10,9 @@ export default class App extends Component {
         color="#841584"
         disabled={false} //是否可以点击
         testID="" //id
+        width="100"
         accessibilityLabel="Learn more about this purple button"
+        style={styles.wid}
       />
     );
   }
@@ -30,3 +32,8 @@ export default class App extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  widh: {
+    width: 100,
+  },
+});
