@@ -5,7 +5,8 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import FoundPage from '../pages/FoundPage';
 import CommunityPage from '../pages/CommunityPage';
 import GamePage from '../pages/GamePage';
-import UserPage from '../pages/UserPage';
+// import UserPage from '../pages/UserPage';
+import DrawerNavigator from '../components/DrawerNavigator';
 import NavigationUtil from './NavigationUtil';
 import Icon from '../components/Icon/MyIcon';
 
@@ -37,8 +38,8 @@ const TABS = {
       ),
     },
   },
-  UserPage: {
-    screen: UserPage,
+  DrawerNavigator: {
+    screen: DrawerNavigator,
     navigationOptions: {
       tabBarLabel: '我的',
       tabBarIcon: ({tintColor, focused}) => (
@@ -54,8 +55,8 @@ export default class DynamicTabNavigator extends Component {
     console.disableYellowBox = true;
   }
   _tabNavigator() {
-    const {FoundPage, CommunityPage, GamePage, UserPage} = TABS;
-    const tabs = {FoundPage, CommunityPage, GamePage, UserPage};
+    const {FoundPage, CommunityPage, GamePage, DrawerNavigator} = TABS;
+    const tabs = {FoundPage, CommunityPage, GamePage, DrawerNavigator};
     // FoundPage.navigationOptions.tabBarLabel = '园区'; //动态配置tab属性
     return createAppContainer(
       createBottomTabNavigator(tabs, {

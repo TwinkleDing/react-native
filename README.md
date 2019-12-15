@@ -21,7 +21,8 @@ npm install
     坑
     swiper的坑
     I removed 1.5.14 (yarn remove react-native-swiper) then installed the nightly with yarn add react-native-swiper@nightly and it’s working on Android now.
-    抽屉菜单未成功
+    抽屉菜单完成，但是只能在根路由下加载，不会抽到组件，初始不出来open和close等方法
+    
 
     19-12-15
     按照中文官网的文档组件和api基本都写了一遍，先熟悉一下，接下来仿照写app

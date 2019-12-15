@@ -40,7 +40,7 @@ export default class GamePage extends Component {
           <Button />
         </View>
         <View style={styles.items}>
-          <Drawer />
+          <Drawer navigation={this.props.navigation} />
         </View>
         <View style={styles.items}>
           <FlatList />

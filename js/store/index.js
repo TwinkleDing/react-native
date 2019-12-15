@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from 'redux';
 
-import reducers from '../reducer';
+import reducers from './reducer/index';
 import {middleware} from '../navigator/AppNavigator';
 /**
  * 自定义log中间件

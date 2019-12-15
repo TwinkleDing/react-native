@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import theme from './theme';
-import {rootCom, RootNavigator} from '../navigator/AppNavigator';
+import {rootCom, RootNavigator} from '../../navigator/AppNavigator';
 
 //1.指定默认state
 const navState = RootNavigator.router.getStateForAction(
