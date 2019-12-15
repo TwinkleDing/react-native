@@ -1,19 +1,21 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet} from 'react-native';
-import {ToastAndroid} from 'react-native';
+import {View, Button, StyleSheet, ToastAndroid, Alert} from 'react-native';
 export default class App extends Component {
   render() {
     return (
-      <Button
-        onPress={this.onPressLearnMore}
-        title="Learn More"
-        color="#841584"
-        disabled={false} //是否可以点击
-        testID="" //id
-        width="100"
-        accessibilityLabel="Learn more about this purple button"
-        style={styles.wid}
-      />
+      <View style={styles.wid}>
+        <Button
+          onPress={this.onPressLearnMore}
+          title="Learn More"
+          color="#841584"
+          disabled={false} //是否可以点击
+          testID="" //id
+          width="100"
+          accessibilityLabel="Learn more about this purple button"
+          style={styles.wid}
+        />
+        <Button onPress={this.alert} title="alert" />
+      </View>
     );
   }
   onPressLearnMore() {
@@ -31,9 +33,30 @@ export default class App extends Component {
       50,
     );
   }
+  alert() {
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {
+          text: 'Ask me later',
+          onPress: () => console.log('Ask me later pressed'),
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      {cancelable: false},
+    );
+  }
 }
 const styles = StyleSheet.create({
   widh: {
     width: 100,
+    backgroundColor: 'red',
+    height: 200,
   },
 });

@@ -7,7 +7,7 @@ import AppNavigator from './navigator/AppNavigator';
 export default class App extends Component {
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={store} backgroundColor="#fff">
         <StatusBar
           backgroundColor="#fff"
           barStyle="dark-content"

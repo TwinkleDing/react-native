@@ -61,7 +61,7 @@ export default class DynamicTabNavigator extends Component {
       createBottomTabNavigator(tabs, {
         lazy: true,
         animationEnabled: false,
-        initialRouteName: 'FoundPage',
+        initialRouteName: 'GamePage',
         tabBarOptions: {
           tabStyle: {minWidth: 50, marginTop: 5},
           upperCaseLabel: false,

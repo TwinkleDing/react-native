@@ -20,7 +20,7 @@ export default class Welcome extends Component {
         useAngle={true}
         angle={-45}
         angleCenter={{x: 0, y: 0}}
-        colors={['#eff0f1', '#eff0f1']}
+        colors={['#fff', '#fff']}
         style={styles.container}>
         <View style={styles.container}>
           <Image source={require('../assets/img/welcome.png')} />
