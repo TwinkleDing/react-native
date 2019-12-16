@@ -5,7 +5,7 @@ import {
   Text,
   View,
   ScrollView,
-  BackHandler,
+  // BackHandler,
 } from 'react-native';
 import NavigationUtil from '../navigator/NavigationUtil';
 

@@ -26,8 +26,13 @@ _I removed 1.5.14 (yarn remove react-native-swiper) then installed the nightly w
 
 **一开始的tabview不生效以为什么问题，在写抽屉菜单发现滑动无法关闭，搜索，添加了Android权限，然后能滑动了，发现tabview也能滑动切换了，很多原生时间都要添加permission，比如Android，还未在ios写**
 
+**backBehavior: 'initialRoute',默认，none否定:控制 "返回" 按钮是否会导致 Tab 页切换到初始 Tab 页? 如果是, 设置为 initialRoute, 否则 none。 默认为 initialRoute的行为。**
+
 19-12-15
 按照中文官网的文档组件和api基本都写了一遍，先熟悉一下，接下来仿照写app
+
+19-12-16
+andriod返回确认功能，发现，react-native和react-react-navigation使用有时候会记混乱，react-naviagtionshi用导航功能的，其他一般都是引自react-native
     
 
     

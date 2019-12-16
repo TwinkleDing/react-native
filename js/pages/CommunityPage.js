@@ -23,27 +23,6 @@ export default class FoundPage extends Component {
               swipeEnabled: true,
             },
           },
-          FoundTab1: {
-            screen: FoundTab,
-            navigationOptions: {
-              tabBarLabel: '发现',
-              swipeEnabled: true,
-            },
-          },
-          FoundTab2: {
-            screen: FoundTab,
-            navigationOptions: {
-              tabBarLabel: '发现',
-              swipeEnabled: true,
-            },
-          },
-          FoundTab3: {
-            screen: FoundTab,
-            navigationOptions: {
-              tabBarLabel: '发现',
-              swipeEnabled: true,
-            },
-          },
         },
         {
           swipeEnabled: true,

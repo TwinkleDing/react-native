@@ -21,24 +21,6 @@ export default class FoundPage extends Component {
               title: '发现',
             },
           },
-          FoundTab1: {
-            screen: FoundTab,
-            navigationOptions: {
-              title: '发现',
-            },
-          },
-          FoundTab2: {
-            screen: FoundTab,
-            navigationOptions: {
-              title: '发现',
-            },
-          },
-          FoundTab3: {
-            screen: FoundTab,
-            navigationOptions: {
-              title: '发现',
-            },
-          },
         },
         {
           initialRouteName: 'FoundTab',

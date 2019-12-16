@@ -5,7 +5,6 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 
 export default class DrawerPage extends Component {
   render() {
-    console.log(this);
     const DrawerNavigator = createAppContainer(
       createDrawerNavigator(
         {
@@ -20,6 +19,7 @@ export default class DrawerPage extends Component {
           drawerBackgroundColor: '#aeeee0',
           drawerType: 'back', //front,slide,back
           overlayColor: '#ad0', //虚化背景色
+          backBehavior: 'none',
         },
       ),
     );

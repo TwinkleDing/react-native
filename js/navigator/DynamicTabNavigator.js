@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
+import {BackHandler, Platform, ToastAndroid} from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import FoundPage from '../pages/FoundPage';
 import CommunityPage from '../pages/CommunityPage';
 import GamePage from '../pages/GamePage';
 // import UserPage from '../pages/UserPage';
 import DrawerNavigator from '../components/DrawerNavigator';
-import NavigationUtil from './NavigationUtil';
 import Icon from '../components/Icon/MyIcon';
 
 const TABS = {
@@ -49,20 +48,43 @@ const TABS = {
   },
 };
 
+let lastBackPressed = 0;
 export default class DynamicTabNavigator extends Component {
   constructor(props) {
     super(props);
     console.disableYellowBox = true;
   }
+  componentDidMount() {
+    // this.getCallLog();
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+    }
+  }
+  componentWillUnmount() {
+    // this.showToast('销毁');
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+    }
+  }
+  onBackAndroid() {
+    if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
+      //最近2秒内按过back键，可以退出应用。
+      BackHandler.exitApp();
+      return;
+    }
+    lastBackPressed = Date.now();
+    ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+    return true;
+  }
   _tabNavigator() {
-    const {FoundPage, CommunityPage, GamePage, DrawerNavigator} = TABS;
-    const tabs = {FoundPage, CommunityPage, GamePage, DrawerNavigator};
-    // FoundPage.navigationOptions.tabBarLabel = '园区'; //动态配置tab属性
+    let {FoundPage, CommunityPage, GamePage, DrawerNavigator} = TABS;
+    let tabs = {FoundPage, CommunityPage, GamePage, DrawerNavigator};
     return createAppContainer(
       createBottomTabNavigator(tabs, {
         lazy: true,
         animationEnabled: false,
-        initialRouteName: 'GamePage',
+        initialRouteName: 'FoundPage',
+        backBehavior: 'none',
         tabBarOptions: {
           tabStyle: {minWidth: 50, marginTop: 5},
           upperCaseLabel: false,
