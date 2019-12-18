@@ -22,13 +22,10 @@ export default class DetailPage extends Component {
       this.backHandler.remove();
     }
   }
-  onBackAndroid() {
-    console.log(this);
-    // NavigationUtil.goBack({
-    //   navigation: this.props.navigation,
-    // });
+  onBackAndroid = () => {
+    this.props.navigation.pop();
     return true;
-  }
+  };
   render() {
     return (
       <View style={styles.container}>

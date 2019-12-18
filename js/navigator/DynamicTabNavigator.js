@@ -66,7 +66,7 @@ export default class DynamicTabNavigator extends Component {
       BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
   }
-  onBackAndroid() {
+  onBackAndroid = () => {
     if (lastBackPressed && lastBackPressed + 2000 >= Date.now()) {
       //最近2秒内按过back键，可以退出应用。
       BackHandler.exitApp();
@@ -75,7 +75,7 @@ export default class DynamicTabNavigator extends Component {
     lastBackPressed = Date.now();
     ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
     return true;
-  }
+  };
   _tabNavigator() {
     let {FoundPage, CommunityPage, GamePage, DrawerNavigator} = TABS;
     let tabs = {FoundPage, CommunityPage, GamePage, DrawerNavigator};
