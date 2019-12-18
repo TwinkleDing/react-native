@@ -1,13 +1,46 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, BackHandler, StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import NavigationUtil from '../navigator/NavigationUtil';
 
 export default class DetailPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    if (Platform.OS === 'android') {
+      this.backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        this.onBackAndroid,
+      );
+    }
+  }
+  componentWillUnmount() {
+    // this.showToast('销毁');
+    if (Platform.OS === 'android') {
+      this.backHandler.remove();
+    }
+  }
+  onBackAndroid() {
+    console.log(this);
+    // NavigationUtil.goBack({
+    //   navigation: this.props.navigation,
+    // });
+    return true;
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>详情</Text>
+        <Text
+          style={styles.welcome}
+          onPress={() => {
+            NavigationUtil.goBack({
+              navigation: this.props.navigation,
+            });
+          }}>
+          返回
+        </Text>
       </View>
     );
   }

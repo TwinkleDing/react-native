@@ -17,14 +17,14 @@ export default class NavigationUtil {
       ...params,
     });
   }
-  // /**
-  //  * 返回上一页
-  //  * @param navigation
-  //  */
-  // static resetToHomePage(params) {
-  //   console.log(navigation);
-  //   navigation.goBack();
-  // }
+  /**
+   * 返回上一页
+   * @param navigation
+   */
+  static goBack(params) {
+    const {navigation} = params;
+    navigation.goBack(null);
+  }
 
   /**
    * 重定向到首页
