@@ -33,6 +33,8 @@ _I removed 1.5.14 (yarn remove react-native-swiper) then installed the nightly w
 
 19-12-16
 andriod返回确认功能，发现，react-native和react-react-navigation使用有时候会记混乱，react-naviagtionshi用导航功能的，其他一般都是引自react-native
-    
+
+19-12-17
+写了一个navigation的goBack事件，点击返回没问题，但是手机的返回遇到了问题，this等传值进不去
 
     
