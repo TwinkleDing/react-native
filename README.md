@@ -39,4 +39,8 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 
 19-12-18
 上一个问题解决了,sss(){}方法this只想有问题,用sss=()=>{}就可以了,this.props.navigation.goBack()和this.props.navigation.pop()效果一样,都是返回上一页.
+添加搞得地图定位 //https://github.com/qiuxiang/react-native-amap3d
+
+19-12-19
+用amap3d,自我定位出现了问题,过一会好了,可能debugger模式卡了
     

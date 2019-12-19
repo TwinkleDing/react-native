@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, PermissionsAndroid} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
-
 export default class FoundPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
@@ -61,7 +60,7 @@ class FouceTab extends Component {
         </Text>
         <Text
           onPress={() => {
-            console.log(this.props);
+            console.log(1);
           }}>
           关注
         </Text>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
+import MapTabs from './MapTabs';
 
 export default class DrawerPage extends Component {
   render() {
@@ -11,8 +12,8 @@ export default class DrawerPage extends Component {
           第一: {
             screen: FouceTab,
           },
-          第二: {
-            screen: FouceTabs,
+          高德地图: {
+            screen: MapTabs,
           },
         },
         {
@@ -50,51 +51,6 @@ class FouceTab extends Component {
     );
   }
 }
-
-class FouceTabs extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text
-          onPress={() => {
-            console.log(this);
-            this.props.navigation.openDrawer();
-          }}>
-          打开
-        </Text>
-      </View>
-    );
-  }
-}
-/*
-  为了完成 react-native-gesture-handler 在 Android 上的安装,请在 MainActivity.java 中做如下修改:
-
-  package com.reactnavigation.example;
-
-  import com.facebook.react.ReactActivity;
-
-  + import com.facebook.react.ReactActivityDelegate;
-  + import com.facebook.react.ReactRootView;
-  + import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
-
-  public class MainActivity extends ReactActivity {
-
-    @Override
-    protected String getMainComponentName() {
-      return "Example";
-    }
-
-  +  @Override
-  +  protected ReactActivityDelegate createReactActivityDelegate() {
-  +    return new ReactActivityDelegate(this, getMainComponentName()) {
-  +      @Override
-  +      protected ReactRootView createRootView() {
-  +       return new RNGestureHandlerEnabledRootView(MainActivity.this);
-  +      }
-  +    };
-  +  }
-  }
-*/
 
 const styles = StyleSheet.create({
   container: {
