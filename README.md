@@ -44,3 +44,5 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 19-12-19
 用amap3d,自我定位出现了问题,过一会好了,可能debugger模式卡了
     
+19-12-20
+首页添加了swiper，循环出来了图片地址，然后要用redux存取
