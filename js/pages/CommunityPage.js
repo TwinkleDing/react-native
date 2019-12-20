@@ -3,7 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import NavigationUtil from '../navigator/NavigationUtil';
-import Swiper from 'react-native-swiper';
 export default class FoundPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
@@ -49,21 +48,6 @@ class FouceTab extends Component {
     const {tabLabel} = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{tabLabel}</Text>
-        <Swiper
-          style={styles.wrapper}
-          showsButtons={false}
-          showsPagination={false}>
-          <View style={styles.slide1}>
-            <Text style={styles.text}>Hello Swiper</Text>
-          </View>
-          <View style={styles.slide2}>
-            <Text style={styles.text}>Beautiful</Text>
-          </View>
-          <View style={styles.slide3}>
-            <Text style={styles.text}>And simple</Text>
-          </View>
-        </Swiper>
         <Text
           onPress={() => {
             NavigationUtil.goPage(
@@ -118,29 +102,5 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-  },
-  wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
   },
 });

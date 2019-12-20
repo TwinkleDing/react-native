@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {MapView} from 'react-native-amap3d';
 
 export default class MapTabs extends Component {
+  constructor(props) {
+    super(props);
+  }
+  openMenu = () => {
+    this.props.navigation.openDrawer();
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -25,6 +31,9 @@ export default class MapTabs extends Component {
           showsScale
           locationEnabled
         />
+        <Text style={styles.menu} onPress={this.openMenu}>
+          打开菜单
+        </Text>
       </View>
     );
   }
@@ -35,6 +44,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    position: 'relative',
+  },
+  menu: {
+    color: '#eee',
+    backgroundColor: 'rgba(40, 126, 224, 0.924)',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'rgba(40, 126, 224, 0.524)',
+    padding: 10,
+    borderRadius: 15,
+    position: 'absolute',
+    bottom: 10,
   },
 });
 

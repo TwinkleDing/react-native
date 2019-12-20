@@ -17,9 +17,9 @@ export default class DrawerPage extends Component {
           },
         },
         {
-          drawerBackgroundColor: '#aeeee0',
+          // drawerBackgroundColor: '#aeeee0',
           drawerType: 'back', //front,slide,back
-          overlayColor: '#ad0', //虚化背景色
+          // overlayColor: '#ad0', //虚化背景色
           backBehavior: 'none',
         },
       ),

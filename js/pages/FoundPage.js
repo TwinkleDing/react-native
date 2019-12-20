@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, PermissionsAndroid} from 'react-native';
+import {View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
-import NavigationUtil from '../navigator/NavigationUtil';
+import FoundTab from '../tabs/FoundTabs';
+import FocusTab from '../tabs/FocusTabs';
 export default class FoundPage extends Component {
   render() {
     const TabNavigator = createAppContainer(
       createMaterialTopTabNavigator(
         {
           FocusTab: {
-            screen: FouceTab,
+            screen: FocusTab,
             navigationOptions: {
               title: '关注',
             },
@@ -37,70 +38,3 @@ export default class FoundPage extends Component {
     );
   }
 }
-
-/**
- * 顶部导航组件
- */
-class FouceTab extends Component {
-  render() {
-    const {tabLabel} = this.props;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>{tabLabel}</Text>
-        <Text
-          onPress={() => {
-            NavigationUtil.goPage(
-              {
-                navigation: this.props.navigation,
-              },
-              'DetailPage',
-            );
-          }}>
-          跳转到详情页
-        </Text>
-        <Text
-          onPress={() => {
-            console.log(1);
-          }}>
-          关注
-        </Text>
-      </View>
-    );
-  }
-}
-class FoundTab extends Component {
-  render() {
-    const {tabLabel} = this.props;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>222{tabLabel}</Text>
-        <Text
-          onPress={() => {
-            NavigationUtil.goPage(
-              {
-                navigation: this.props.navigation,
-              },
-              'DetailPage',
-            );
-          }}>
-          跳转到详情页
-        </Text>
-        <Text>发现</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
