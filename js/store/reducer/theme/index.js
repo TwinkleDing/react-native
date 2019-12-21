@@ -1,5 +1,4 @@
-import Types from '../../action/types';
-
+import Types from '../../action/theme/types';
 const defaultState = {
   theme: 'blue',
 };
@@ -8,7 +7,7 @@ export default function onAction(state = defaultState, action) {
     case Types.THEME_CHANGE:
       return {
         ...state,
-        theme: action.thrme,
+        theme: action.theme,
       };
 
     default:

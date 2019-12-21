@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, Surface} from 'react-native';
 import Swiper from 'react-native-swiper';
 import NavigationUtil from '../navigator/NavigationUtil';
+import store from '../store/index';
+import {onThemeChange} from '../store/action/theme/index';
+import {connect} from 'react-redux';
 
-export default class FoundTab extends Component {
+class FoundTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +20,7 @@ export default class FoundTab extends Component {
   ImageList() {
     const list = this.state.imageList.map(item => {
       return (
-        <View style={styles.slide1}>
+        <View key={item} style={styles.slide1}>
           <Image
             style={styles.image}
             source={{
@@ -52,11 +55,38 @@ export default class FoundTab extends Component {
           }}>
           跳转到详情页
         </Text>
-        <Text>发现</Text>
+        <Text
+          onPress={() => {
+            let color = 'red';
+            if (this.props.themeState === 'red') {
+              color = 'blue';
+            }
+            this.props.onThemeChange(color);
+          }}>
+          切换导航栏颜色
+        </Text>
       </View>
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    themeState: store.getState().theme.theme,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    onThemeChange: themeColor => dispatch(onThemeChange(themeColor)),
+  };
+}
+const ChangeThemeColorPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  // 注意：这里千万要写上这句话，否则用了Redux后的组件是无法使用ref获取该组件的
+  {forwardRef: true},
+)(FoundTab);
+export default ChangeThemeColorPageContainer;
 
 const styles = StyleSheet.create({
   container: {

@@ -4,8 +4,15 @@ import {createAppContainer} from 'react-navigation';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 import FoundTab from '../tabs/FoundTabs';
 import FocusTab from '../tabs/FocusTabs';
-export default class FoundPage extends Component {
+import store from '../store/index';
+import {connect} from 'react-redux';
+
+class FoundPage extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    console.log(this);
     const TabNavigator = createAppContainer(
       createMaterialTopTabNavigator(
         {
@@ -27,6 +34,9 @@ export default class FoundPage extends Component {
           lazy: true,
           tabBarOptions: {
             scrollEnabled: true,
+            style: {
+              backgroundColor: this.props.themeState,
+            },
           },
         },
       ),
@@ -38,3 +48,19 @@ export default class FoundPage extends Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    themeState: store.getState().theme.theme,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {};
+}
+
+const ProjectNavigationBarContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FoundPage);
+
+export default ProjectNavigationBarContainer;
