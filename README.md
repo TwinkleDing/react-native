@@ -48,4 +48,5 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 首页添加了swiper，循环出来了图片地址，然后要用redux存取
 
 19-12-21
-切换导航栏的颜色但是刷新不了，修改完store的值，组件无法重新获取.完成导航栏换颜色，相当于完成了app主题，就是要用redux的content进行宝包裹，然后添加mapDispatchToProps和mapStateToProps将store的值设置在props，改变props将重新渲染组件
+切换导航栏的颜色但是刷新不了，修改完store的值，组件无法重新获取.完成导航栏换颜色，相当于完成了app主题，就是要用redux的content进行宝包裹，然后添加mapDispatchToProps和mapStateToProps将store的值设置在props，改变props将重新渲染组件。
+添加了一个简单的get请求，

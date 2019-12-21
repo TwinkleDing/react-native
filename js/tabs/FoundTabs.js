@@ -5,6 +5,7 @@ import NavigationUtil from '../navigator/NavigationUtil';
 import store from '../store/index';
 import {onThemeChange} from '../store/action/theme/index';
 import {connect} from 'react-redux';
+import axios from '../axios/index.js';
 
 class FoundTab extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class FoundTab extends Component {
         'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576864005759&di=8bd78c0dea41154f43b83fdaf5dfd860&imgtype=0&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2F3bf33a87e950352a0d68994e5843fbf2b2118b6f.jpg',
         'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576864082119&di=503b72145cc7018b3416721acdb15be6&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn16%2F282%2Fw640h442%2F20180507%2Facce-hacuuvu4799147.jpg',
       ],
+      qingqiu: '未请求',
     };
   }
   ImageList() {
@@ -65,6 +67,17 @@ class FoundTab extends Component {
           }}>
           切换导航栏颜色
         </Text>
+        <Text
+          onPress={() => {
+            axios.get('http://www.mockhttp.cn/mock/TwinkleDing').then(res => {
+              console.log(res);
+              this.setState({qingqiu: res.data});
+              console.log(this);
+            });
+          }}>
+          请求
+        </Text>
+        <Text>{this.state.qingqiu}</Text>
       </View>
     );
   }

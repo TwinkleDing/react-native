@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "^2.1.0",
     "@react-native-community/slider": "^2.0.8",
+    "axios": "^0.19.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-amap3d": "^1.1.1",
