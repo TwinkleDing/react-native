@@ -8,6 +8,9 @@ import GamePage from '../pages/GamePage';
 // import UserPage from '../pages/UserPage';
 import DrawerNavigator from '../components/DrawerNavigator';
 import Icon from '../components/Icon/MyIcon';
+import store from '../store/index';
+import {onThemeChange} from '../store/action/theme/index';
+import {connect} from 'react-redux';
 
 const TABS = {
   FoundPage: {
@@ -49,7 +52,7 @@ const TABS = {
 };
 
 let lastBackPressed = 0;
-export default class DynamicTabNavigator extends Component {
+class DynamicTabNavigator extends Component {
   constructor(props) {
     super(props);
     console.disableYellowBox = true;
@@ -86,6 +89,7 @@ export default class DynamicTabNavigator extends Component {
         initialRouteName: 'FoundPage',
         backBehavior: 'none',
         tabBarOptions: {
+          activeTintColor: this.props.themeState,
           tabStyle: {minWidth: 50, marginTop: 5},
           upperCaseLabel: false,
           scrollEnabled: false,
@@ -103,3 +107,22 @@ export default class DynamicTabNavigator extends Component {
     return <Tab />;
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    themeState: store.getState().theme.theme,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    onThemeChange: themeColor => dispatch(onThemeChange(themeColor)),
+  };
+}
+const ChangeThemeColorPageContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  // 注意：这里千万要写上这句话，否则用了Redux后的组件是无法使用ref获取该组件的
+  {forwardRef: true},
+)(DynamicTabNavigator);
+export default ChangeThemeColorPageContainer;

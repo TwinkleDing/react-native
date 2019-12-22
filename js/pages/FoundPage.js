@@ -12,7 +12,6 @@ class FoundPage extends Component {
     super(props);
   }
   render() {
-    console.log(this);
     const TabNavigator = createAppContainer(
       createMaterialTopTabNavigator(
         {
