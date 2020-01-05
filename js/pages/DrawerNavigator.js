@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
-import MapTabs from './MapTabs';
+import MapTabs from '../tabs/MapTabs';
+import MoneyTabs from '../tabs/MoneyTabs';
 
 export default class DrawerPage extends Component {
   render() {
@@ -14,6 +15,9 @@ export default class DrawerPage extends Component {
           },
           高德地图: {
             screen: MapTabs,
+          },
+          记账本: {
+            screen: MoneyTabs,
           },
         },
         {
@@ -36,6 +40,7 @@ class FouceTab extends Component {
     return (
       <View style={styles.container}>
         <Text
+          style={styles.oopen}
           onPress={() => {
             this.props.navigation.openDrawer();
           }}>
@@ -86,5 +91,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  oopen: {
+    backgroundColor: '#acc',
+    padding: 20,
   },
 });

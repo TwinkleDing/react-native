@@ -19,11 +19,11 @@ export default class Example extends Component {
   }
 
   _keyboardDidShow() {
-    alert('Keyboard Shown');
+    // alert('Keyboard Shown');
   }
 
   _keyboardDidHide() {
-    alert('Keyboard Hidden');
+    // alert('Keyboard Hidden');
   }
 
   render() {

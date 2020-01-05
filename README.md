@@ -50,3 +50,9 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 19-12-21
 切换导航栏的颜色但是刷新不了，修改完store的值，组件无法重新获取.完成导航栏换颜色，相当于完成了app主题，就是要用redux的content进行宝包裹，然后添加mapDispatchToProps和mapStateToProps将store的值设置在props，改变props将重新渲染组件。
 添加了一个简单的get请求，
+
+20-1-4z
+准备写一个记账本功能，想到得自己写个日历，坑：关闭和开启调试环境的话，rn的运行环境不一样，导致一直提示array size is not a samll enough positive integer，数字是NAN。一步步输入到开始，再弄，结果好了，好像没啥改啥，添加了上一月下一月的功能，点击触发
+
+20-1-5
+给日历添加了滑动事件，但是没有滑动的样式，考虑到样式还要获取上一月和下一月的日期，算了，当前月.模态窗样式添加，新增功能添加，准备用本地化存储保存数据，然后读取

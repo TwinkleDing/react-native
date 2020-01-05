@@ -6,7 +6,7 @@ import FoundPage from '../pages/FoundPage';
 import CommunityPage from '../pages/CommunityPage';
 import GamePage from '../pages/GamePage';
 // import UserPage from '../pages/UserPage';
-import DrawerNavigator from '../components/DrawerNavigator';
+import DrawerNavigator from '../pages/DrawerNavigator';
 import Icon from '../components/Icon/MyIcon';
 import store from '../store/index';
 import {onThemeChange} from '../store/action/theme/index';
@@ -86,7 +86,7 @@ class DynamicTabNavigator extends Component {
       createBottomTabNavigator(tabs, {
         lazy: true,
         animationEnabled: false,
-        initialRouteName: 'FoundPage',
+        initialRouteName: 'DrawerNavigator',
         backBehavior: 'none',
         tabBarOptions: {
           activeTintColor: this.props.themeState,

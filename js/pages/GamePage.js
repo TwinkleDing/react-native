@@ -11,7 +11,7 @@ import NavigationUtil from '../navigator/NavigationUtil';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import Button from '../components/Button';
-import Drawer from '../components/DrawerNavigator';
+import Drawer from './DrawerNavigator';
 import FlatList from '../components/FlatList';
 import Image from '../components/Image';
 import Picker from '../components/Picker';
