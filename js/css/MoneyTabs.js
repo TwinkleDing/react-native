@@ -11,7 +11,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    fontSize: 40,
+  },
+  titleText: {
+    fontSize: 20,
   },
   content: {
     height: 'auto',

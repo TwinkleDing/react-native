@@ -2,31 +2,118 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   PanResponder,
   Modal,
   TouchableHighlight,
   TextInput,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from '../components/Icon/MyIcon';
 import styles from '../css/MoneyTabs';
-export default class Pickers extends Component {
+export default class Moneys extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
-      moneyName: '',
-      money: '',
     };
   }
   openMenu = () => {
     this.props.navigation.openDrawer();
   };
-  setModalVisible(visible) {
+  setModalVisible = visible => {
     this.setState({modalVisible: visible});
-    if (visible === false) {
-      console.log(this.state);
-    }
+  };
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.title}>
+          <Icon onPress={this.openMenu} name={'home'} size={26} />
+          <Text style={styles.titleText}>记账本</Text>
+          <Icon name={'more'} size={23} />
+        </View>
+        <View style={styles.content}>
+          <Time />
+          <ListMoney style={styles.list} />
+          <Icon
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+            name={'newAdd'}
+            size={80}
+            style={styles.newAdd}
+          />
+        </View>
+        <MonetModal parent={this} />
+      </View>
+    );
+  }
+}
+
+class ListMoney extends Component {
+  constructor(props) {
+    super(props);
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let day = new Date().getDate();
+    this.state = {
+      time: `${year}-${month}-${day}`,
+      listText: '啥也没干',
+    };
+  }
+  UNSAFE_componentWillMount() {
+    this.lists = async () => {
+      let list = [];
+      const valueData = await AsyncStorage.getItem(this.state.time);
+      let data = JSON.parse(valueData);
+      if (data) {
+        list = data.map((item, index) => {
+          return (
+            <View key={index}>
+              <View>
+                <Text>啥时候</Text>
+                <Text>{item.time}</Text>
+              </View>
+              <View>
+                <Text>干啥了</Text>
+                <Text>{item.moneyName}</Text>
+              </View>
+              <View>
+                <Text>多少钱</Text>
+                <Text>{item.money}</Text>
+              </View>
+            </View>
+          );
+        });
+      }
+      if (list.length) {
+        this.setState({
+          listText: list,
+        });
+        return list;
+      } else {
+        return <Text>啥也没干2</Text>;
+      }
+    };
+    this.list = () => {
+      this.lists();
+      if (typeof (this.state.listText === 'String')) {
+        return <Text>{this.state.listText}</Text>;
+      } else {
+        return this.state.listText;
+      }
+    };
+  }
+  render() {
+    return <View>{this.list()}</View>;
+  }
+}
+class MonetModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      moneyName: '',
+      money: '',
+    };
   }
   onChangeText(text, type) {
     if (type === 'name') {
@@ -39,61 +126,72 @@ export default class Pickers extends Component {
       });
     }
   }
+  setMoneyData = async () => {
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let day = new Date().getDate();
+    let hour = new Date().getHours();
+    let minutes = new Date().getMinutes();
+    let key = `${year}-${month}-${day}`;
+    let time = `${key} ${hour}:${minutes}`;
+    let map = new Map();
+    try {
+      const lodValue = await AsyncStorage.getItem(key);
+      map.set(key, JSON.parse(lodValue));
+    } catch (e) {
+      console.log(e);
+      map.set(key, []);
+    }
+    let listValue = [];
+    if (map.get(key)) {
+      listValue.push(map.get(key));
+    }
+    listValue.push({time, ...this.state});
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(listValue));
+    } catch (e) {
+      console.log(e);
+    }
+  };
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.title}>
-          <Icon onPress={this.openMenu} name={'home'} size={26} />
-          <Text style={{fontSize: 20}}>记账本</Text>
-          <Icon name={'more'} size={23} />
-        </View>
-        <View style={styles.content}>
-          <Time />
-          <View style={styles.list} />
-          <Icon
-            onPress={() => {
-              this.setModalVisible(true);
-            }}
-            name={'newAdd'}
-            size={80}
-            style={styles.newAdd}
-          />
-        </View>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          hardwareAccelerated={true}
-          visible={this.state.modalVisible}>
-          <View style={styles.modalView}>
-            <View style={styles.modalItem}>
-              <Text style={styles.modalText}>干了啥</Text>
-              <TextInput
-                onChangeText={text => this.onChangeText(text, 'name')}
-                style={styles.input}
-              />
-            </View>
-            <View style={styles.modalItem}>
-              <Text style={styles.modalText}>多少钱</Text>
-              <TextInput
-                onChangeText={text => this.onChangeText(text, 'money')}
-                style={styles.input}
-                keyboardType="number-pad"
-              />
-            </View>
-            <TouchableHighlight
-              style={styles.modalBtn}
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}>
-              <Text style={styles.modalText}>OK了</Text>
-            </TouchableHighlight>
+      <Modal
+        animationType="slide"
+        transparent={false}
+        hardwareAccelerated={true}
+        visible={this.props.parent.state.modalVisible}>
+        <View style={styles.modalView}>
+          <View style={styles.modalItem}>
+            <Text style={styles.modalText}>干了啥</Text>
+            <TextInput
+              onChangeText={text => this.onChangeText(text, 'name')}
+              style={styles.input}
+            />
           </View>
-        </Modal>
-      </View>
+          <View style={styles.modalItem}>
+            <Text style={styles.modalText}>多少钱</Text>
+            <TextInput
+              onChangeText={text => this.onChangeText(text, 'money')}
+              style={styles.input}
+              keyboardType="number-pad"
+            />
+          </View>
+          <TouchableHighlight
+            style={styles.modalBtn}
+            onPress={() => {
+              this.props.parent.setModalVisible(
+                !this.props.parent.state.modalVisible,
+              );
+            }}>
+            <Text onPress={this.setMoneyData} style={styles.modalText}>
+              OK了
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </Modal>
     );
   }
 }
-
 class Time extends Component {
   constructor(props) {
     super(props);
