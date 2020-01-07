@@ -59,3 +59,6 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 
 20-1-6
 本地存储都加好了，但是AsyncStorage要异步获取，这样的话渲染不到组件上，明天看
+
+20-1-7
+但是AsyncStorage要异步获取，这样的话渲染不到组件上，明天看

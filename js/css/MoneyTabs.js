@@ -81,6 +81,7 @@ export default StyleSheet.create({
   },
   list: {
     flex: 1,
+    backgroundColor: '#AC0',
   },
   newAdd: {
     color: '#2a8df3',

@@ -33,7 +33,7 @@ export default class Moneys extends Component {
         </View>
         <View style={styles.content}>
           <Time />
-          <ListMoney style={styles.list} />
+          <ListMoney />
           <Icon
             onPress={() => {
               this.setModalVisible(true);
@@ -57,54 +57,50 @@ class ListMoney extends Component {
     let day = new Date().getDate();
     this.state = {
       time: `${year}-${month}-${day}`,
-      listText: '啥也没干',
+      listText: '<Text>啥也没干</Text>',
     };
   }
   UNSAFE_componentWillMount() {
-    this.lists = async () => {
-      let list = [];
-      const valueData = await AsyncStorage.getItem(this.state.time);
-      let data = JSON.parse(valueData);
-      if (data) {
-        list = data.map((item, index) => {
-          return (
-            <View key={index}>
-              <View>
-                <Text>啥时候</Text>
-                <Text>{item.time}</Text>
+    this.lists = () => {
+      const valueData = AsyncStorage.getItem(this.state.time);
+      valueData.then(res => {
+        let data = JSON.parse(res);
+        if (data) {
+          let list = data[0].map((item, index) => {
+            return (
+              <View key={index} style={{backgroundColor: 'red'}}>
+                <View>
+                  <Text>啥时候</Text>
+                  <Text>{item.time}</Text>
+                </View>
+                <View>
+                  <Text>干啥了</Text>
+                  <Text>{item.moneyName}</Text>
+                </View>
+                <View>
+                  <Text>多少钱</Text>
+                  <Text>{item.money}</Text>
+                </View>
               </View>
-              <View>
-                <Text>干啥了</Text>
-                <Text>{item.moneyName}</Text>
-              </View>
-              <View>
-                <Text>多少钱</Text>
-                <Text>{item.money}</Text>
-              </View>
-            </View>
-          );
-        });
-      }
-      if (list.length) {
-        this.setState({
-          listText: list,
-        });
-        return list;
-      } else {
-        return <Text>啥也没干2</Text>;
-      }
+            );
+          });
+          this.setState({
+            listText: list,
+          });
+          return list;
+        } else {
+          return <Text>啥也没干</Text>;
+        }
+      });
     };
     this.list = () => {
-      this.lists();
-      if (typeof (this.state.listText === 'String')) {
-        return <Text>{this.state.listText}</Text>;
-      } else {
-        return this.state.listText;
-      }
+      let a = this.lists();
+      console.log(a);
+      return <Text>{this.state.listText}</Text>;
     };
   }
   render() {
-    return <View>{this.list()}</View>;
+    return <View style={styles.list}>{this.list()}</View>;
   }
 }
 class MonetModal extends Component {
@@ -146,7 +142,7 @@ class MonetModal extends Component {
     if (map.get(key)) {
       listValue.push(map.get(key));
     }
-    listValue.push({time, ...this.state});
+    listValue[0].push({time, ...this.state});
     try {
       await AsyncStorage.setItem(key, JSON.stringify(listValue));
     } catch (e) {
@@ -182,10 +178,9 @@ class MonetModal extends Component {
               this.props.parent.setModalVisible(
                 !this.props.parent.state.modalVisible,
               );
+              this.setMoneyData();
             }}>
-            <Text onPress={this.setMoneyData} style={styles.modalText}>
-              OK了
-            </Text>
+            <Text style={styles.modalText}>OK了</Text>
           </TouchableHighlight>
         </View>
       </Modal>
