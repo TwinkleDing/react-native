@@ -81,7 +81,24 @@ export default StyleSheet.create({
   },
   list: {
     flex: 1,
-    backgroundColor: '#AC0',
+  },
+  moneyList: {
+    padding: 20,
+  },
+  moneyListTitle: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  moneyListItem: {
+    flexDirection: 'row',
+    paddingBottom: 5,
+  },
+  moneyListText: {
+    fontSize: 20,
+    marginRight: 30,
   },
   newAdd: {
     color: '#2a8df3',

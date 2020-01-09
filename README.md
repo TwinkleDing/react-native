@@ -62,3 +62,9 @@ andriod返回确认功能，发现，react-native和react-react-navigation使用
 
 20-1-7
 但是AsyncStorage要异步获取，这样的话渲染不到组件上，明天看
+
+20-1-8
+渲染已经可以了,添加了合计
+
+20-1-9
+添加了删除选中天的功能，能够选择天进行加减

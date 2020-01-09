@@ -4,8 +4,11 @@ import {
   Text,
   PanResponder,
   Modal,
-  TouchableHighlight,
+  TouchableOpacity,
   TextInput,
+  FlatList,
+  ToastAndroid,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from '../components/Icon/MyIcon';
@@ -15,6 +18,10 @@ export default class Moneys extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      showYear: new Date().getFullYear(),
+      showMonth: new Date().getMonth() + 1,
+      showDay: new Date().getDate(),
+      newData: false,
     };
   }
   openMenu = () => {
@@ -32,8 +39,8 @@ export default class Moneys extends Component {
           <Icon name={'more'} size={23} />
         </View>
         <View style={styles.content}>
-          <Time />
-          <ListMoney />
+          <Time timeShow={this} />
+          <ListMoney timeShow={this} />
           <Icon
             onPress={() => {
               this.setModalVisible(true);
@@ -52,55 +59,148 @@ export default class Moneys extends Component {
 class ListMoney extends Component {
   constructor(props) {
     super(props);
-    let year = new Date().getFullYear();
-    let month = new Date().getMonth() + 1;
-    let day = new Date().getDate();
+    let year = this.props.timeShow.state.showYear;
+    let month = this.props.timeShow.state.showMonth;
+    let day = this.props.timeShow.state.showDay;
     this.state = {
       time: `${year}-${month}-${day}`,
-      listText: '<Text>啥也没干</Text>',
+      list: [],
+      newData: false,
     };
   }
   UNSAFE_componentWillMount() {
-    this.lists = () => {
-      const valueData = AsyncStorage.getItem(this.state.time);
-      valueData.then(res => {
-        let data = JSON.parse(res);
-        if (data) {
-          let list = data[0].map((item, index) => {
-            return (
-              <View key={index} style={{backgroundColor: 'red'}}>
-                <View>
-                  <Text>啥时候</Text>
-                  <Text>{item.time}</Text>
-                </View>
-                <View>
-                  <Text>干啥了</Text>
-                  <Text>{item.moneyName}</Text>
-                </View>
-                <View>
-                  <Text>多少钱</Text>
-                  <Text>{item.money}</Text>
-                </View>
-              </View>
-            );
-          });
-          this.setState({
-            listText: list,
-          });
-          return list;
-        } else {
-          return <Text>啥也没干</Text>;
-        }
-      });
-    };
+    this.lists();
     this.list = () => {
-      let a = this.lists();
-      console.log(a);
-      return <Text>{this.state.listText}</Text>;
+      let data = this.state.list;
+      data.map((item, index) => {
+        item.key = index.toString();
+      });
+      if (data.length) {
+        let totals = data.reduce((total, num) => {
+          return (total += Number(num.money));
+        }, 0);
+        return (
+          <View style={styles.list}>
+            <View style={styles.moneyListTitle}>
+              <View style={styles.moneyListItem}>
+                <Text style={styles.moneyListText}>合计</Text>
+                <Text style={styles.moneyListText}>{totals}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.modalBtn}
+                onPress={this.deleteMoneyAlert}>
+                <Text>删除这天的</Text>
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              data={data}
+              renderItem={({item}) => {
+                return (
+                  <View style={styles.moneyList} key={item.key}>
+                    <View style={styles.moneyListItem}>
+                      <Text style={styles.moneyListText}>啥时候:</Text>
+                      <Text style={styles.moneyListText}>{item.time}</Text>
+                    </View>
+                    <View style={styles.moneyListItem}>
+                      <Text style={styles.moneyListText}>干啥了:</Text>
+                      <Text style={styles.moneyListText}>{item.moneyName}</Text>
+                    </View>
+                    <View style={styles.moneyListItem}>
+                      <Text style={styles.moneyListText}>多少钱:</Text>
+                      <Text style={styles.moneyListText}>{item.money}</Text>
+                    </View>
+                  </View>
+                );
+              }}
+            />
+          </View>
+        );
+      } else {
+        return <Text>还没有花钱</Text>;
+      }
     };
   }
+  deleteMoneyAlert = () => {
+    Alert.alert(
+      '提示',
+      '确定要删除今天的记录？？？',
+      [
+        {
+          text: '算了算了',
+          onPress: () => {
+            ToastAndroid.show(
+              '不删了不删了',
+              ToastAndroid.CENTER,
+              ToastAndroid.SHORT,
+            );
+          },
+          style: 'cancel',
+        },
+        {
+          text: '删就删了',
+          onPress: () => {
+            this.deleteMoney();
+            ToastAndroid.show(
+              '真删了啊',
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM,
+              25,
+              50,
+            );
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+  deleteMoney = async () => {
+    try {
+      await AsyncStorage.removeItem(this.state.time);
+      await this.lists();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  lists = async () => {
+    try {
+      const valueData = await AsyncStorage.getItem(this.state.time);
+      if (valueData != null) {
+        let data = JSON.parse(valueData);
+        console.log('获取成功');
+        this.setState({
+          list: data,
+        });
+      } else {
+        console.log('获取失败');
+        this.setState({
+          list: [],
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  UNSAFE_componentWillReceiveProps() {
+    let year = this.props.timeShow.state.showYear;
+    let month = this.props.timeShow.state.showMonth;
+    let day = this.props.timeShow.state.showDay;
+    let time = `${year}-${month}-${day}`;
+    if (this.props.timeShow.state.newData) {
+      this.props.timeShow.setState({
+        newData: false,
+      });
+      this.setState(
+        {
+          time: time,
+        },
+        () => {
+          this.lists();
+        },
+      );
+    }
+  }
   render() {
-    return <View style={styles.list}>{this.list()}</View>;
+    return this.list();
   }
 }
 class MonetModal extends Component {
@@ -123,9 +223,19 @@ class MonetModal extends Component {
     }
   }
   setMoneyData = async () => {
-    let year = new Date().getFullYear();
-    let month = new Date().getMonth() + 1;
-    let day = new Date().getDate();
+    if (!this.state.money || !this.state.moneyName) {
+      ToastAndroid.show(
+        '往里面加数据啊，臭弟弟',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+      return false;
+    }
+    let year = this.props.parent.state.showYear;
+    let month = this.props.parent.state.showMonth;
+    let day = this.props.parent.state.showDay;
     let hour = new Date().getHours();
     let minutes = new Date().getMinutes();
     let key = `${year}-${month}-${day}`;
@@ -140,14 +250,25 @@ class MonetModal extends Component {
     }
     let listValue = [];
     if (map.get(key)) {
-      listValue.push(map.get(key));
+      listValue = map.get(key);
     }
-    listValue[0].push({time, ...this.state});
+    listValue.push({time, ...this.state});
     try {
       await AsyncStorage.setItem(key, JSON.stringify(listValue));
+      await this.canleAdd();
+      this.props.parent.setState({
+        newData: true,
+      });
     } catch (e) {
       console.log(e);
     }
+  };
+  canleAdd = () => {
+    this.props.parent.setModalVisible(!this.props.parent.state.modalVisible);
+    this.setState({
+      money: '',
+      moneyName: '',
+    });
   };
   render() {
     return (
@@ -172,16 +293,12 @@ class MonetModal extends Component {
               keyboardType="number-pad"
             />
           </View>
-          <TouchableHighlight
-            style={styles.modalBtn}
-            onPress={() => {
-              this.props.parent.setModalVisible(
-                !this.props.parent.state.modalVisible,
-              );
-              this.setMoneyData();
-            }}>
+          <TouchableOpacity style={styles.modalBtn} onPress={this.setMoneyData}>
             <Text style={styles.modalText}>OK了</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.modalBtn} onPress={this.canleAdd}>
+            <Text style={styles.modalText}>算了算了</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     );
@@ -301,6 +418,12 @@ class Time extends Component {
   handleClick = index => {
     this.setState({
       clickDay: index,
+    });
+    this.props.timeShow.setState({
+      showYear: this.state.showYear,
+      showMonth: Number(this.state.showMonth),
+      showDay: index,
+      newData: true,
     });
   };
   arrChange(dayItem) {
@@ -452,3 +575,24 @@ class Time extends Component {
     );
   }
 }
+/**
+ * FlatList相关方法
+    ref = 'flatList'  // this.refs.flatList 获取到该组件
+    data = {[{name: '小米'},{name: '小兵'}]}   // 列表的数据源, 数组
+    extraData = {this.state} //引用类型，数据可能不会更新，只是复制，没有操作引用的对象
+    ListHeaderComponent = {this._listHeaderComponent.bind(this)}//渲染头部组件
+    ListEmptyComponent = {this._listEmptyComponent.bind(this)} //列表为空时渲染
+    initialNumToRender = {6} //首屏渲染的数据量，不会在滑动中被卸载
+    renderItem = {this._renderItem.bind(this)} //渲染列表数据
+    keyExtractor= {(item, index) => index + item;} //每行不一样的key
+    ItemSeparaterComponent = {() => <View style={{height:6}} /> //行分隔线，首行前和尾行后无分隔
+    columnWrapperStyle = {{borderWidth: 2}}  //行数>1时，可额外设置行样式
+    showsVerticalScrollIndicator = {false} //继承ScrollView的属性，显示水平指示器默认是true
+    horizontal = {false} //默认true是垂直布局
+    numColumns = {3}  // 水平布局的item数量
+    ListFooterComponent = {this._listFooterComponent.bind(this)} //渲染底部组件
+    refreshing = {true} // 等待加载出现加载的符号
+    onRefresh = {this._onRefresh.bind(this)} //上拉刷新
+    onEndReachedThreshold = {0.1} //当距离内容比例不足内容0.1比例时触发onEndReached
+    onEndReached = {this._endReached.bind(this)} //上拉加载数据
+**/
