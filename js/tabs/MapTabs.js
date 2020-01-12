@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {MapView} from 'react-native-amap3d';
+// import {MapView} from 'react-native-amap3d';
 
 export default class MapTabs extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class MapTabs extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapView
+        {/* <MapView
           style={StyleSheet.absoluteFill} //这个必须加,不然不显示
           mapType="standard"
           coordinate={{
@@ -30,7 +30,7 @@ export default class MapTabs extends Component {
           tiltEnabled
           showsScale
           locationEnabled
-        />
+        /> */}
         <Text style={styles.menu} onPress={this.openMenu}>
           打开菜单
         </Text>
