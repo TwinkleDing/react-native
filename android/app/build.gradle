@@ -95,7 +95,8 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = true
+//  打包加的，本来为false
+def enableProguardInReleaseBuilds = false
 
 /**
  * The preferred build flavor of JavaScriptCore.
@@ -120,19 +121,21 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-    aaptOptions.cruncherEnabled = false
-    aaptOptions.useNewCruncher = false
+    // 打包加的
+    // aaptOptions.cruncherEnabled = false
+    // aaptOptions.useNewCruncher = false
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    aaptOptions {
-        cruncherEnabled = false
-        useNewCruncher = false
+    // 打包加的
+    // aaptOptions {
+    //     cruncherEnabled = false
+    //     useNewCruncher = false
 
-    }
+    // }
     defaultConfig {
         applicationId "com.rndemo"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -156,12 +159,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        release {
-            storeFile file('my-release-key.keystore')
-            storePassword 'woaiwo52710'
-            keyAlias 'my-key-alias'
-            keyPassword 'woaiwo52710'
-        }
+        // 打包加的
+        // release {
+        //     storeFile file('my-release-key.keystore')
+        //     storePassword 'woaiwo52710'
+        //     keyAlias 'my-key-alias'
+        //     keyPassword 'woaiwo52710'
+        // }
     }
     buildTypes {
         debug {
@@ -170,8 +174,9 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.release
-            // signingConfig signingConfigs.debug
+            // 打包加的
+            // signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
